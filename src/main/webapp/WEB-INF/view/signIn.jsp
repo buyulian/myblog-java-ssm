@@ -22,7 +22,7 @@
 
 <body>
 <div class="page-header">
-    <h1 id="title">权限管理框架示例</h1>
+    <h1 id="title">我的博客</h1>
 </div>
 <div class="container">
     <div class="row">
