@@ -29,6 +29,10 @@ public class TextServiceImpl implements TextService {
         textDao.update(text);
     }
 
+    public void delete(int id) {
+        textDao.delete(id);
+    }
+
     public int getId(){
         return textDao.getId();
     }

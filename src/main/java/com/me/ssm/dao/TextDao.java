@@ -17,6 +17,8 @@ public interface TextDao {
 
     void update(Text text);
 
+    void delete(@Param("id") int id);
+
     int getId();
 
     List<Text> getAllText();

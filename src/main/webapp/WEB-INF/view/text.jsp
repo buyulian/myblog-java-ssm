@@ -39,10 +39,10 @@
     editor.config.uploadImgUrl = '/upload';
 
     // 配置自定义参数（举例）
-    editor.config.uploadParams = {
-        token: 'abcdefg',
-        user: 'wangfupeng1988'
-    };
+//    editor.config.uploadParams = {
+//        token: 'abcdefg',
+//        user: 'wangfupeng1988'
+//    };
 
     // 设置 headers（举例）
     editor.config.uploadHeaders = {

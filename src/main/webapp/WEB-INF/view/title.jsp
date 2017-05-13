@@ -9,7 +9,9 @@
 <div>
     <c:if test="${!empty titleList}">
         <c:forEach var="Text" items="${titleList}">
-            <a href="seeBlog?id=${Text.id}">标题：${Text.title}</a> &nbsp;&nbsp;<br>
+            <a href="seeBlog?id=${Text.id}">标题：${Text.title}</a>
+            <a href="deleteBlog?id=${Text.id}">删除</a>
+            &nbsp;&nbsp;<br>
         </c:forEach>
     </c:if>
 </div>

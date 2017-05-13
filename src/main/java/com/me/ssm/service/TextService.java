@@ -15,6 +15,8 @@ public interface TextService {
 
     void update(Text text);
 
+    void delete(int id);
+
     int getId();
 
     List<Text> getAllText();

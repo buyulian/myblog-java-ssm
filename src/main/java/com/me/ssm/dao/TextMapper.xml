@@ -29,4 +29,8 @@
         UPDATE text set title=#{title},content=#{content} WHERE id=#{id}
     </update>
 
+    <delete id="delete" parameterType="int">
+        DELETE FROM text WHERE id=#{id}
+    </delete>
+
 </mapper>
