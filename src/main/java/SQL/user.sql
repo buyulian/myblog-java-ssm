@@ -21,3 +21,11 @@ CREATE TABLE `user` (
 INSERT INTO `user` VALUES ('1', '赵大宝','admin', '05126a423a9379d529e4ee61a212fa55', 'KJUYT5');
 INSERT INTO `user` VALUES ('2', '张三丰','admin', '98bd3a1bebde01ad363d3c5a0d1e56da', '656JHU');
 INSERT INTO `user` VALUES ('3', '王尼玛','admin', '5470db9b63c354f6c8d628b80ae2f3c3', '89UIKQ');
+
+DROP TABLE IF EXISTS `text`;
+CREATE TABLE `text` (
+  `id` int default NULL  AUTO_INCREMENT ,
+  `title` varchar(64) default NULL,
+  `content` TEXT default NULL ,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
