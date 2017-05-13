@@ -214,6 +214,13 @@
         </includes>
         <filtering>false</filtering>
       </resource>
+      <resource>
+        <directory>src/main/webapp</directory>
+        <includes>
+          <include>**/*.html</include>
+        </includes>
+        <filtering>false</filtering>
+      </resource>
     </resources>
   </build>
 </project>
