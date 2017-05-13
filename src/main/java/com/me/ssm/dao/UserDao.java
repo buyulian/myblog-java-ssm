@@ -13,9 +13,9 @@ import java.util.List;
 @Repository
 public interface UserDao {
 
-    User selectUserById(@Param("id") String id);
+    User getUserById(@Param("id") String id);
 
     void add(User user);
 
-    List<User> selectAllUser();
+    List<User> getAllUser();
 }

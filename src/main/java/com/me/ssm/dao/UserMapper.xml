@@ -10,12 +10,12 @@
         <result column="salt" property="salt" jdbcType="VARCHAR"/>
     </resultMap>
 
-    <select id="selectUserById" parameterType="String" resultMap="UserBaseMap">
+    <select id="getUserById" parameterType="String" resultMap="UserBaseMap">
         SELECT * FROM user
         WHERE id = #{id}
     </select>
 
-    <select id="selectAllUser" resultMap="UserBaseMap">
+    <select id="getAllUser" resultMap="UserBaseMap">
         SELECT * FROM user
     </select>
 

@@ -18,11 +18,11 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     public User getUserById(String id) {
-        return userDao.selectUserById(id);
+        return userDao.getUserById(id);
     }
 
     public List<User> getAllUser() {
-        return userDao.selectAllUser();
+        return userDao.getAllUser();
     }
 
     public void add(User user) {
