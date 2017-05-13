@@ -9,7 +9,7 @@
 <div>
     <c:if test="${!empty titleList}">
         <c:forEach var="Text" items="${titleList}">
-            <a href="text?id=${Text.id}">标题：${Text.title}</a> &nbsp;&nbsp;<br>
+            <a href="seeBlog?id=${Text.id}">标题：${Text.title}</a> &nbsp;&nbsp;<br>
         </c:forEach>
     </c:if>
 </div>

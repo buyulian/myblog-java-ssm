@@ -56,7 +56,7 @@
 </script>
 <div>
     <button onclick="save()">保存</button>
-    <a href="title">查看</a>
+    <a href="/">查看</a>
 </div>
 <script>
     function save() {

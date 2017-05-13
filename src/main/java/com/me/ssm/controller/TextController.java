@@ -19,7 +19,7 @@ public class TextController {
     @Resource
     private TextService textService;
 
-    @RequestMapping("/title")
+    @RequestMapping("/")
     public String title(HttpServletRequest request, Model model){
         List<Text> title=textService.getAllText();
         model.addAttribute("titleList",title);
@@ -57,5 +57,11 @@ public class TextController {
         text.setId(-1);
         model.addAttribute("text",text);
         return "text";
+    }
+    @RequestMapping("/seeBlog")
+    public String seeBlog(HttpServletRequest request, Model model){
+        Text text= textService.getTextById(Integer.parseInt(request.getParameter("id")));
+        model.addAttribute("text",text);
+        return "seeBlog";
     }
 }

@@ -16,7 +16,7 @@ import java.util.Random;
 //这个类集中了授权管理相关的所有工具类，从微观角度进行权限管理
 @Component
 public class Authentication {
-    public static String backPath="redirect:/signIn";//越权访问的返回路径
+    public static String backPath="redirect:/";//越权访问的返回路径
     //登录工具类
     public static boolean login(String id,String pwd,HttpServletRequest request,UserService userService){
         User user=userService.getUserById(id);

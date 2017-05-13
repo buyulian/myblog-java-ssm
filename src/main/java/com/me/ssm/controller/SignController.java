@@ -20,7 +20,6 @@ public class SignController {
 
     @RequestMapping("/signIn")
     public String signIn(){
-
         return "signIn";
     }
 
@@ -32,7 +31,7 @@ public class SignController {
     @RequestMapping("/login")
     public String login(HttpServletRequest request, Model model, User user){
         if(Authentication.login(user.getId(),user.getPassword(),request,userService))
-            return "redirect:showUser";
+            return Authentication.backPath;
         model.addAttribute("message","密码错误");
         return "signIn";
     }

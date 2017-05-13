@@ -106,7 +106,7 @@
     </servlet-mapping>
 
     <welcome-file-list>
-        <welcome-file>/WEB-INF/view/signIn.jsp</welcome-file>
+        <welcome-file></welcome-file>
     </welcome-file-list>
 
     <!-- session配置 -->
