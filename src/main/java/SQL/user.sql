@@ -25,7 +25,7 @@ INSERT INTO `user` VALUES ('3', '王尼玛','admin', '5470db9b63c354f6c8d628b80a
 DROP TABLE IF EXISTS `text`;
 CREATE TABLE `text` (
   `id` int default NULL  AUTO_INCREMENT ,
-  `title` varchar(64) default NULL,
+  `title` varchar(256) default NULL,
   `content` TEXT default NULL ,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
