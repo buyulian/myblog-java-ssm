@@ -32,9 +32,12 @@ public class TextController {
     }
 
     @RequestMapping("/text")
-    public String text(HttpServletRequest request, Model model){
+    public String text(HttpServletRequest request, Model model) throws IOException {
         int id=Integer.parseInt(request.getParameter("id"));
         Text text=textService.getTextById(id);
+//        String str=Authentication.base64Decode(text.getContent());
+//        str = str.replaceAll("%(?![0-9a-fA-F]{2})", "%25");
+//        text.setContent(URLDecoder.decode(str,"utf-8"));
         model.addAttribute("text",text);
         return "text";
     }
@@ -65,7 +68,7 @@ public class TextController {
         return "text";
     }
     @RequestMapping("/seeBlog")
-    public String seeBlog(HttpServletRequest request, Model model){
+    public String seeBlog(HttpServletRequest request, Model model) throws IOException {
         Text text= textService.getTextById(Integer.parseInt(request.getParameter("id")));
         model.addAttribute("text",text);
         return "seeBlog";

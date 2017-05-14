@@ -17,7 +17,23 @@
     <!--引入jquery和wangEditor.js-->   <!--注意：javascript必须放在body最后，否则可能会出现问题-->
     <script type="text/javascript" src="/wangEditor/dist/js/lib/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="/wangEditor/dist/js/wangEditor.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.base64.js"></script>
+    <script>
+        window.onload = function() {
 
+            var str="${text.content}";
+            var mod4 = str.length%4;
+            if(mod4 > 0){
+                str = str + "====".substring(mod4);
+            }
+            str=replaceAll('_','/',str);
+            str=replaceAll('-','+',str);
+            str=$.base64.decode(str);
+            str=unescape(str);
+
+            document.getElementById("div1").innerHTML="<p>"+str+"</p>";
+        }
+    </script>
 </head>
 
 <body>
@@ -28,21 +44,20 @@
 <div style="width:90%">
     <!--用当前元素来控制高度-->
     <div id="div1" style="height:400px;max-height:500px;">
-        <p>${text.content}</p>
     </div>
 </div>
-<!--这里引用jquery和wangEditor.js-->
-<script type="text/javascript">
+<script>
+
     var editor = new wangEditor('div1');
 
     // 上传图片（举例）
     editor.config.uploadImgUrl = '/upload';
 
     // 配置自定义参数（举例）
-//    editor.config.uploadParams = {
-//        token: 'abcdefg',
-//        user: 'wangfupeng1988'
-//    };
+    //    editor.config.uploadParams = {
+    //        token: 'abcdefg',
+    //        user: 'wangfupeng1988'
+    //    };
 
     // 设置 headers（举例）
     editor.config.uploadHeaders = {
@@ -54,11 +69,15 @@
 
     editor.create();
 </script>
-<div>
-    <button onclick="save()">保存</button>
-    <a href="/">查看</a>
-</div>
 <script>
+    function replaceAll(s1,s2,str){
+        var n=str.length;
+        for(var i=0;i<n;i++){
+            if(str[i]==s1)
+                str=str.replace(s1,s2);
+        }
+        return str;
+    }
     function save() {
         // 获取编辑器区域完整html代码
         var html = editor.$txt.html();
@@ -79,12 +98,23 @@
                 alert("保存成功");
             }
         }
+        html=escape(html);
+        html=$.base64.encode(html);
+//        html=$.base64.decode(html);
+//        html=unescape(html);
+        html=replaceAll('+','-',html);
+        html=replaceAll('/','_',html);
+        html=replaceAll('=','',html);
         var title=document.getElementById("title").value;
         xmlhttp.open("POST","/save",true);
         xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         xmlhttp.send("content="+html+"&id=${text.id}&title="+title);
     }
 </script>
+<div>
+    <button onclick="save()">保存</button>
+    <a href="/">查看</a>
+</div>
 </body>
 
 </html>
