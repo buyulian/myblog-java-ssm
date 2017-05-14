@@ -29,7 +29,7 @@
             str=replaceAll('_','/',str);
             str=replaceAll('-','+',str);
             str=$.base64.decode(str);
-            str=unescape(str);
+            str=decodeURI(str);
 
             document.getElementById("div1").innerHTML="<p>"+str+"</p>";
         }
@@ -39,11 +39,13 @@
 <body>
 <div>
     <input type="text" value="${text.title}" id="title">
+    <button onclick="save()">保存</button>
+    <a href="/">查看</a>
 </div>
 <!--用父容器来控制宽度-->
-<div style="width:90%">
+<div>
     <!--用当前元素来控制高度-->
-    <div id="div1" style="height:400px;max-height:500px;">
+    <div id="div1" style="height:600px;max-height:1600px;">
     </div>
 </div>
 <script>
@@ -65,7 +67,7 @@
     };
 
     // 隐藏掉插入网络图片功能。该配置，只有在你正确配置了图片上传功能之后才可用。
-    editor.config.hideLinkImg = true;
+    //editor.config.hideLinkImg = true;
 
     editor.create();
 </script>
@@ -98,7 +100,7 @@
                 alert("保存成功");
             }
         }
-        html=escape(html);
+        html=encodeURI(html);
         html=$.base64.encode(html);
 //        html=$.base64.decode(html);
 //        html=unescape(html);
@@ -111,10 +113,6 @@
         xmlhttp.send("content="+html+"&id=${text.id}&title="+title);
     }
 </script>
-<div>
-    <button onclick="save()">保存</button>
-    <a href="/">查看</a>
-</div>
 </body>
 
 </html>

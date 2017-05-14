@@ -17,6 +17,10 @@
         SELECT id,title FROM text
     </select>
 
+    <select id="getAllTextContent" resultMap="TextBaseMap">
+        SELECT * FROM text
+    </select>
+
     <select id="getId" resultMap="TextBaseMap">
         SELECT @@IDENTITY
     </select>

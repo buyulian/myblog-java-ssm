@@ -1,5 +1,6 @@
 package com.me.ssm.controller;
 
+import com.me.ssm.System.Authentication;
 import com.me.ssm.model.Text;
 import com.me.ssm.service.TextService;
 import org.springframework.stereotype.Controller;
@@ -79,7 +80,7 @@ public class TextController {
         return "redirect:/";
     }
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public void upload(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+    public void upload(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String path = request.getRealPath("/upload");
         File file = new File(path);
         if (!file.exists())
@@ -96,6 +97,7 @@ public class TextController {
                     int lio=fin.lastIndexOf(".");
                     int len=fin.length();
                     String substr=fin.substring(lio,len);
+                    substr=substr.toLowerCase();
                     fileName = uuid+substr;
                    fi.transferTo(new File(path, fileName));
                 }
@@ -112,5 +114,11 @@ public class TextController {
         out.print(imgUrl);  //返回url地址
         out.flush();
         out.close();
+    }
+    @RequestMapping("/deleteUnusedImage")
+    public String deleteUnusedImage(HttpServletRequest request){
+        String path = request.getRealPath("/upload");
+        textService.deleteUnusedImage(path);
+        return Authentication.backPath;
     }
 }

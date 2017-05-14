@@ -24,6 +24,9 @@
     <a href="loginOut">
         <input type="button" value="退出" class="btn btn-default">
     </a>
+    <a href="deleteUnusedImage">
+        <input type="button" value="清理无用图片" class="btn btn-default">
+    </a>
     </a>
 </div>
 </body>

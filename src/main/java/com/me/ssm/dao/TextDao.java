@@ -22,4 +22,6 @@ public interface TextDao {
     int getId();
 
     List<Text> getAllText();
+
+    List<Text> getAllTextContent();
 }

@@ -26,7 +26,7 @@
             str=replaceAll('_','/',str);
             str=replaceAll('-','+',str);
             str=$.base64.decode(str);
-            str=unescape(str);
+            str=decodeURI(str);
 
             document.getElementById("div1").innerHTML="<p>"+str+"</p>";
         }
@@ -45,17 +45,17 @@
 
 <body>
 <div>
-    <label id="title">${text.title}</label>
-</div>
-<!--用父容器来控制宽度-->
-<div style="width:90%">
-    <!--用当前元素来控制高度-->
-    <div id="div1" style="height:400px;max-height:500px;">
-    </div>
+    <h1>${text.title}</h1>
 </div>
 <div>
     <a href="/">查看标题</a>
     <a href="text?id=${text.id}">编辑内容</a>
+</div>
+<!--用父容器来控制宽度-->
+<div>
+    <!--用当前元素来控制高度-->
+    <div id="div1">
+    </div>
 </div>
 </body>
 </html>

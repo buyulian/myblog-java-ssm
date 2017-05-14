@@ -20,4 +20,8 @@ public interface TextService {
     int getId();
 
     List<Text> getAllText();
+
+    List<Text> getAllTextContent();
+
+    void deleteUnusedImage(String path);
 }
