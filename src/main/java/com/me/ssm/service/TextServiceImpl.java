@@ -24,7 +24,14 @@ public class TextServiceImpl implements TextService {
     private TextDao textDao;
 
     public Text getTextById(int id){
-        return textDao.getTextById(id);
+        Text text=textDao.getTextById(id);
+        try {
+            String str=Authentication.base64Decode(text.getTitle());
+            text.setTitle(str);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return text;
     }
 
     public void add(Text text){
@@ -44,7 +51,16 @@ public class TextServiceImpl implements TextService {
     }
 
     public List<Text> getAllText(){
-        return textDao.getAllText();
+        List<Text> textList=textDao.getAllText();
+        for(Text text:textList){
+            try {
+                String str=Authentication.base64Decode(text.getTitle());
+                text.setTitle(str);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return textList;
     }
 
     public List<Text> getAllTextContent() {

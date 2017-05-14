@@ -20,7 +20,6 @@
     <script type="text/javascript" src="/js/jquery.base64.js"></script>
     <script>
         window.onload = function() {
-
             var str="${text.content}";
             var mod4 = str.length%4;
             if(mod4 > 0){
@@ -38,7 +37,7 @@
 
 <body>
 <div>
-    <input type="text" value="${text.title}" id="title">
+    <input type="text" id="title" value="${text.title}">
     <button onclick="save()">保存</button>
     <a href="/">查看</a>
 </div>
@@ -74,10 +73,21 @@
 <script>
     function replaceAll(s1,s2,str){
         var n=str.length;
+        var str2="";
         for(var i=0;i<n;i++){
             if(str[i]==s1)
-                str=str.replace(s1,s2);
+                str2+=s2;
+            else
+                str2+=str[i];
         }
+        return str2;
+    }
+    function encode(str) {
+        str=encodeURI(str);
+        str=$.base64.encode(str);
+        str=replaceAll('+','-',str);
+        str=replaceAll('/','_',str);
+        str=replaceAll('=','',str);
         return str;
     }
     function save() {
@@ -100,14 +110,9 @@
                 alert("保存成功");
             }
         }
-        html=encodeURI(html);
-        html=$.base64.encode(html);
-//        html=$.base64.decode(html);
-//        html=unescape(html);
-        html=replaceAll('+','-',html);
-        html=replaceAll('/','_',html);
-        html=replaceAll('=','',html);
+        html=encode(html);
         var title=document.getElementById("title").value;
+        title=encode(title);
         xmlhttp.open("POST","/save",true);
         xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         xmlhttp.send("content="+html+"&id=${text.id}&title="+title);
