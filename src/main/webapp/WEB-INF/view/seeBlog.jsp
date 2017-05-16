@@ -6,12 +6,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="utf-8">
-    <title>查看博客</title>
+    <title></title>
     <!--引入jquery和wangEditor.js-->   <!--注意：javascript必须放在body最后，否则可能会出现问题-->
     <script type="text/javascript" src="/wangEditor/dist/js/lib/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="/js/jquery.base64.js"></script>
@@ -29,9 +31,21 @@
             str=decodeURI(str);
 
             document.getElementById("div1").innerHTML="<p>"+str+"</p>";
+            document.getElementsByTagName("title")[0].innerHTML="查看："+decode("${text.title}");
         }
     </script>
     <script>
+        function decode(str) {
+            var mod4 = str.length%4;
+            if(mod4 > 0){
+                str = str + "====".substring(mod4);
+            }
+            str=replaceAll('_','/',str);
+            str=replaceAll('-','+',str);
+            str=$.base64.decode(str);
+            str=decodeURI(str);
+            return str;
+        }
         function replaceAll(s1,s2,str){
             var n=str.length;
             for(var i=0;i<n;i++){
@@ -45,11 +59,13 @@
 
 <body>
 <div>
-    <h1>${text.title}</h1>
+    <h1><script>document.write(decode("${text.title}"))</script></h1>
 </div>
 <div>
-    <a href="/">查看标题</a>
-    <a href="text?id=${text.id}">编辑内容</a>
+    <a href="/">首页</a>
+    <c:if test="${isAdmin!=null}">
+        <a href="text?id=${text.id}">编辑</a>
+    </c:if>
 </div>
 <!--用父容器来控制宽度-->
 <div>

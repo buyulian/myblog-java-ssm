@@ -24,21 +24,18 @@ public class TextServiceImpl implements TextService {
     private TextDao textDao;
 
     public Text getTextById(int id){
-        Text text=textDao.getTextById(id);
-        try {
-            String str=Authentication.base64Decode(text.getTitle());
-            text.setTitle(str);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return text;
+        return textDao.getTextById(id);
     }
 
     public void add(Text text){
+        if(text.getTitle().length()>240)
+            return;
         textDao.add(text);
     }
 
     public void update(Text text) {
+        if(text.getTitle().length()>240)
+            return;
         textDao.update(text);
     }
 
@@ -51,16 +48,7 @@ public class TextServiceImpl implements TextService {
     }
 
     public List<Text> getAllText(){
-        List<Text> textList=textDao.getAllText();
-        for(Text text:textList){
-            try {
-                String str=Authentication.base64Decode(text.getTitle());
-                text.setTitle(str);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return textList;
+        return textDao.getAllText();
     }
 
     public List<Text> getAllTextContent() {
@@ -113,9 +101,18 @@ public class TextServiceImpl implements TextService {
             String fname=f.getName();
             if(fname.contains(flag)){
                 String substr=fname.substring(flag.length());
-                if(!f.renameTo(new File(path+substr)));
+                if(!f.renameTo(new File(path+substr)))
                     System.out.println("重命名文件失败");
             }
+        }
+    }
+    private void decodeTitle(Text text){
+        try {
+            String str=Authentication.base64Decode(text.getTitle());
+            str=URLDecoder.decode(str,"utf-8");
+            text.setTitle(str);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

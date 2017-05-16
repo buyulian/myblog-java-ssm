@@ -27,6 +27,9 @@ public class TextController {
 
     @RequestMapping("/")
     public String title(HttpServletRequest request, Model model){
+        if(Authentication.isLogin(request)){
+            model.addAttribute("isAdmin",true);
+        }
         List<Text> title=textService.getAllText();
         model.addAttribute("titleList",title);
         return "title";
@@ -34,6 +37,9 @@ public class TextController {
 
     @RequestMapping("/text")
     public String text(HttpServletRequest request, Model model) throws IOException {
+        if(!Authentication.isLogin(request)){
+            return Authentication.backPath;
+        }
         int id=Integer.parseInt(request.getParameter("id"));
         Text text=textService.getTextById(id);
 //        String str=Authentication.base64Decode(text.getContent());
@@ -44,6 +50,9 @@ public class TextController {
     }
     @RequestMapping("/save")
     public void save(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+        if(!Authentication.isLogin(request)){
+            return ;
+        }
         String content=request.getParameter("content");
         String title=request.getParameter("title");
         int id=Integer.parseInt(request.getParameter("id"));
@@ -63,6 +72,9 @@ public class TextController {
     }
     @RequestMapping("/addBlog")
     public String addBlog(HttpServletRequest request, Model model){
+        if(!Authentication.isLogin(request)){
+            return Authentication.backPath;
+        }
         Text text=new Text();
         text.setId(-1);
         model.addAttribute("text",text);
@@ -70,12 +82,18 @@ public class TextController {
     }
     @RequestMapping("/seeBlog")
     public String seeBlog(HttpServletRequest request, Model model) throws IOException {
+        if(Authentication.isLogin(request)){
+            model.addAttribute("isAdmin",true);
+        }
         Text text= textService.getTextById(Integer.parseInt(request.getParameter("id")));
         model.addAttribute("text",text);
         return "seeBlog";
     }
     @RequestMapping("/deleteBlog")
     public String deleteBlog(HttpServletRequest request, Model model){
+        if(!Authentication.isLogin(request)){
+            return Authentication.backPath;
+        }
         textService.delete(Integer.parseInt(request.getParameter("id")));
         return "redirect:/";
     }
@@ -117,6 +135,9 @@ public class TextController {
     }
     @RequestMapping("/deleteUnusedImage")
     public String deleteUnusedImage(HttpServletRequest request){
+        if(!Authentication.isLogin(request)){
+            return Authentication.backPath;
+        }
         String path = request.getRealPath("/upload");
         textService.deleteUnusedImage(path);
         return Authentication.backPath;

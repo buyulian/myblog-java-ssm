@@ -24,7 +24,10 @@ public class SignController {
     }
 
     @RequestMapping("/signUp")
-    public String signUp(){
+    public String signUp(HttpServletRequest request){
+        if(!Authentication.isLogin(request)){
+            return Authentication.backPath;
+        }
         return "signUp";
     }
 
@@ -38,6 +41,9 @@ public class SignController {
 
     @RequestMapping("/loginOut")
     public String loginOut(HttpServletRequest request,User user){
+        if(!Authentication.isLogin(request)){
+            return Authentication.backPath;
+        }
         Authentication.loginOut(request);
         return Authentication.backPath;
     }

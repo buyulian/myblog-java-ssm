@@ -11,7 +11,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>富文本编辑器</title>
+    <title></title>
     <!--引入wangEditor.css-->
     <link rel="stylesheet" type="text/css" href="/wangEditor/dist/css/wangEditor.min.css">
     <!--引入jquery和wangEditor.js-->   <!--注意：javascript必须放在body最后，否则可能会出现问题-->
@@ -21,25 +21,22 @@
     <script>
         window.onload = function() {
             var str="${text.content}";
-            var mod4 = str.length%4;
-            if(mod4 > 0){
-                str = str + "====".substring(mod4);
-            }
-            str=replaceAll('_','/',str);
-            str=replaceAll('-','+',str);
-            str=$.base64.decode(str);
-            str=decodeURI(str);
-
+            str=decode(str);
             document.getElementById("div1").innerHTML="<p>"+str+"</p>";
+            str="${text.title}";
+            str=decode(str);
+            document.getElementById("title").value=str;
+            document.getElementsByTagName("title")[0].innerHTML="编辑："+decode("${text.title}");
         }
     </script>
 </head>
 
 <body>
 <div>
-    <input type="text" id="title" value="${text.title}">
+    <input type="text" id="title">
     <button onclick="save()">保存</button>
-    <a href="/">查看</a>
+    <a href="/">首页</a>
+    <a href="seeBlog?id=${text.id}">查看</a>
 </div>
 <!--用父容器来控制宽度-->
 <div>
@@ -90,6 +87,17 @@
         str=replaceAll('=','',str);
         return str;
     }
+    function decode(str) {
+        var mod4 = str.length%4;
+        if(mod4 > 0){
+            str = str + "====".substring(mod4);
+        }
+        str=replaceAll('_','/',str);
+        str=replaceAll('-','+',str);
+        str=$.base64.decode(str);
+        str=decodeURI(str);
+        return str;
+    }
     function save() {
         // 获取编辑器区域完整html代码
         var html = editor.$txt.html();
@@ -113,6 +121,10 @@
         html=encode(html);
         var title=document.getElementById("title").value;
         title=encode(title);
+        if(title.length>240){
+            alert("标题太长");
+            return;
+        }
         xmlhttp.open("POST","/save",true);
         xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
         xmlhttp.send("content="+html+"&id=${text.id}&title="+title);
