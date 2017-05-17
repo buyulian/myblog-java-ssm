@@ -310,7 +310,19 @@ ul.posts .datetime {
     vertical-align: baseline;
     zoom: 1;
     *display: inline;
-    width: 130px;
+    width: 80px;
+    text-transform: uppercase;
+    float: right;
+    color: #999;
+    font-size: 14px;
+    text-align: right;
+}
+ul.posts .remove {
+    display: inline-block;
+    vertical-align: baseline;
+    zoom: 1;
+    *display: inline;
+    width: 40px;
     text-transform: uppercase;
     float: right;
     color: #999;

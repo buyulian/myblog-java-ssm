@@ -14,6 +14,9 @@
 <head>
     <meta charset="utf-8">
     <title></title>
+    <link rel="shortcut icon" href="/img/blog.ico" type="image/x-icon">
+    <link rel="icon" href="/img/blog.ico" type="image/x-icon">
+
     <!--引入wangEditor.css-->
     <link rel="stylesheet" type="text/css" href="/wangEditor/dist/css/wangEditor.min.css">
     <!--引入jquery和wangEditor.js-->   <!--注意：javascript必须放在body最后，否则可能会出现问题-->

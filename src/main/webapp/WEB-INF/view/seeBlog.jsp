@@ -14,23 +14,18 @@
 <head>
     <meta charset="utf-8">
     <title></title>
+    <link rel="shortcut icon" href="/img/blog.ico" type="image/x-icon">
+    <link rel="icon" href="/img/blog.ico" type="image/x-icon">
+
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css">
+    <link href="/css/responsive.css" rel="stylesheet" type="text/css">
+    <link href='/css/common.css' rel='stylesheet' type='text/css' />
     <!--引入jquery和wangEditor.js-->   <!--注意：javascript必须放在body最后，否则可能会出现问题-->
     <script type="text/javascript" src="/wangEditor/dist/js/lib/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="/js/jquery.base64.js"></script>
     <script>
         window.onload = function() {
-
-            var str="${text.content}";
-            var mod4 = str.length%4;
-            if(mod4 > 0){
-                str = str + "====".substring(mod4);
-            }
-            str=replaceAll('_','/',str);
-            str=replaceAll('-','+',str);
-            str=$.base64.decode(str);
-            str=decodeURI(str);
-
-            document.getElementById("div1").innerHTML="<p>"+str+"</p>";
             document.getElementsByTagName("title")[0].innerHTML="查看："+decode("${text.title}");
         }
     </script>
@@ -58,14 +53,32 @@
 </head>
 
 <body>
-<div>
+<div id="u">
+    <c:if test="${isAdmin!=null}">
+        <a href="text?id=${text.id}">
+            <small class="datetime muted">编辑</small>
+        </a>
+    </c:if>
+    <a href="/">
+        <small class="datetime muted">首页</small>
+    </a>
+    <a href="signIn">
+        <small class="datetime muted">登录</small>
+    </a>
+</div>
+<div class="center">
     <h1><script>document.write(decode("${text.title}"))</script></h1>
 </div>
-<div>
-    <a href="/">首页</a>
-    <c:if test="${isAdmin!=null}">
-        <a href="text?id=${text.id}">编辑</a>
-    </c:if>
+<div id="container">
+    <div class="content">
+        <div id="div1">
+            <p>
+               <script>document.write(decode("${text.content}"))</script>
+            </p>
+        </div>
+    </div>
+</div>
+<div class="center">
     <c:if test="${priText!=null}">
         <a href="seeBlog?id=${priText.id}">上一篇：<script>document.write(decode("${priText.title}"))</script></a>
     </c:if>
@@ -78,12 +91,6 @@
     <c:if test="${nextText==null}">
         <label>下一篇：没有了</label>
     </c:if>
-</div>
-<!--用父容器来控制宽度-->
-<div>
-    <!--用当前元素来控制高度-->
-    <div id="div1">
-    </div>
 </div>
 </body>
 </html>

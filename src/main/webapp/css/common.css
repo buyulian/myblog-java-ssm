@@ -1,4 +1,4 @@
-#header{
+.center{
     text-align:center
 }
 #title{
@@ -11,4 +11,11 @@
     padding: 0;
     color: #999;
     white-space: nowrap;
+}
+#u a{
+    padding-left:5px;
+}
+.center a{
+    text-align:center;
+    padding:20px;
 }

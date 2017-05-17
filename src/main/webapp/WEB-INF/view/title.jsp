@@ -8,6 +8,9 @@
 <head>
     <title>首页</title>
 
+    <link rel="shortcut icon" href="/img/blog.ico" type="image/x-icon">
+    <link rel="icon" href="/img/blog.ico" type="image/x-icon">
+
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <link href="/css/syntax.css" rel="stylesheet" type="text/css">
     <link href="/css/responsive.css" rel="stylesheet" type="text/css">
@@ -59,7 +62,7 @@
         <small class="datetime muted">登录</small>
     </a>
 </div>
-<div id="header">
+<div class="center">
     <img src="/img/logo.jpg" alt="logo" width="66" height="66"></a>
     <p>buyulian</p>
     <p>自强不息</p>
@@ -70,11 +73,13 @@
             <c:if test="${!empty titleList}">
                 <c:forEach var="text" items="${titleList}">
                     <li>
-                        <a href="seeBlog?id=${text.id}"><script>document.write(decode("${text.title}"))</script></a>
-                        <small class="datetime muted">${text.date.year+1900}-${text.date.month+1}-${text.date.date}</small>
+                        <a href="seeBlog?id=${text.id}">
+                            <script>document.write(decode("${text.title}"))</script>
+                        </a>
                         <c:if test="${isAdmin!=null}">
-                            <a href="deleteBlog?id=${text.id}" class="datetime muted">删除</a>
+                            <a href="deleteBlog?id=${text.id}" class="remove">删除</a>
                         </c:if>
+                        <small class="datetime muted">${text.date.year+1900}-${text.date.month+1}-${text.date.date}</small>
                         &nbsp;&nbsp;<br>
                     </li>
                 </c:forEach>
