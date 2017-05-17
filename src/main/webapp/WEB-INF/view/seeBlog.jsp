@@ -62,16 +62,13 @@
     <a href="/">
         <small class="datetime muted">首页</small>
     </a>
-    <a href="signIn">
-        <small class="datetime muted">登录</small>
-    </a>
 </div>
 <div class="center">
     <h1><script>document.write(decode("${text.title}"))</script></h1>
 </div>
 <div id="container">
     <div class="content">
-        <div id="div1">
+        <div>
             <p>
                <script>document.write(decode("${text.content}"))</script>
             </p>
