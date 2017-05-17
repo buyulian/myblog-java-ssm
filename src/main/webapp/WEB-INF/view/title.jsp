@@ -58,9 +58,6 @@
             <small class="datetime muted">清理无用图片</small>
         </a>
     </c:if>
-    <a href="signIn">
-        <small class="datetime muted">登录</small>
-    </a>
 </div>
 <div class="center">
     <img src="/img/logo.jpg" alt="logo" width="66" height="66"></a>

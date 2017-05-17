@@ -17,6 +17,8 @@
     <link rel="shortcut icon" href="/img/blog.ico" type="image/x-icon">
     <link rel="icon" href="/img/blog.ico" type="image/x-icon">
 
+    <link rel="stylesheet" type="text/css" href="/css/common.css">
+
     <!--引入wangEditor.css-->
     <link rel="stylesheet" type="text/css" href="/wangEditor/dist/css/wangEditor.min.css">
     <!--引入jquery和wangEditor.js-->   <!--注意：javascript必须放在body最后，否则可能会出现问题-->
@@ -37,18 +39,22 @@
 </head>
 
 <body>
-<div>
+<div class="center">
     <input type="text" id="title">
-    <button onclick="save()">保存</button>
-    <a href="/">首页</a>
-    <c:if test="${text.id>0}">
-        <a href="seeBlog?id=${text.id}">查看</a>
-    </c:if>
+    <div class="div-item">
+        <a onclick="save()" href="#">保存</a>
+        <a href="/">首页</a>
+        <c:if test="${text.id>0}">
+            <a href="seeBlog?id=${text.id}">查看</a>
+        </c:if>
+    </div>
 </div>
-<!--用父容器来控制宽度-->
-<div>
-    <!--用当前元素来控制高度-->
-    <div id="div1" style="height:600px;max-height:1600px;">
+<div class="center">
+    <!--用父容器来控制宽度-->
+    <div id="editor-width">
+        <!--用当前元素来控制高度-->
+        <div id="div1">
+        </div>
     </div>
 </div>
 <script>
