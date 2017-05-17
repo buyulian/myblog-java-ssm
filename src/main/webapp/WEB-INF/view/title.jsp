@@ -1,10 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.text.DateFormat"  %>
+<%@ page import="static java.awt.SystemColor.text" %>
 <!DOCTYPE html>
 <html>
 <head>
     <title>首页</title>
+
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/syntax.css" rel="stylesheet" type="text/css">
+    <link href="/css/responsive.css" rel="stylesheet" type="text/css">
+    <link href="/css/common.css" rel="stylesheet" type="text/css">
+
 
     <!--引入jquery和wangEditor.js-->   <!--注意：javascript必须放在body最后，否则可能会出现问题-->
     <script type="text/javascript" src="/wangEditor/dist/js/lib/jquery-1.10.2.min.js"></script>
@@ -35,33 +43,44 @@
     </script>
 </head>
 <body>
-<div id="titleDiv">
-    <c:if test="${!empty titleList}">
-        <c:forEach var="text" items="${titleList}">
-            <a href="seeBlog?id=${text.id}">标题：<script>document.write(decode("${text.title}"))</script></a>
-            <c:if test="${isAdmin!=null}">
-                <a href="deleteBlog?id=${text.id}">删除</a>
-            </c:if>
-            &nbsp;&nbsp;<br>
-        </c:forEach>
-    </c:if>
-</div>
-<div>
-    <a href="signIn">
-        <input type="button" value="登录" class="btn btn-default">
-    </a>
+<div id="u">
     <c:if test="${isAdmin!=null}">
         <a href="addBlog">
-            <input type="button" value="添加" class="btn btn-default">
+            <small class="datetime muted">添加</small>
+        </a>
         <a href="loginOut">
-            <input type="button" value="退出" class="btn btn-default">
+            <small class="datetime muted">退出</small>
         </a>
         <a href="deleteUnusedImage">
-            <input type="button" value="清理无用图片" class="btn btn-default">
+            <small class="datetime muted">清理无用图片</small>
         </a>
     </c:if>
-
+    <a href="signIn">
+        <small class="datetime muted">登录</small>
     </a>
+</div>
+<div id="header">
+    <img src="/img/logo.jpg" alt="logo" width="66" height="66"></a>
+    <p>buyulian</p>
+    <p>自强不息</p>
+</div>
+<div id="container">
+    <div class="content">
+        <ul class="posts">
+            <c:if test="${!empty titleList}">
+                <c:forEach var="text" items="${titleList}">
+                    <li>
+                        <a href="seeBlog?id=${text.id}"><script>document.write(decode("${text.title}"))</script></a>
+                        <small class="datetime muted">${text.date.year+1900}-${text.date.month+1}-${text.date.date}</small>
+                        <c:if test="${isAdmin!=null}">
+                            <a href="deleteBlog?id=${text.id}" class="datetime muted">删除</a>
+                        </c:if>
+                        &nbsp;&nbsp;<br>
+                    </li>
+                </c:forEach>
+            </c:if>
+        </ul>
+    </div>
 </div>
 </body>
 </html>

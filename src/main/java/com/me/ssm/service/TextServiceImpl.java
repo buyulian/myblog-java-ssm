@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,6 +32,7 @@ public class TextServiceImpl implements TextService {
     public void add(Text text){
         if(text.getTitle().length()>240)
             return;
+        text.setDate(new Date());
         textDao.add(text);
     }
 

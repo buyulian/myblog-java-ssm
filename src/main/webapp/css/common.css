@@ -1,4 +1,14 @@
+#header{
+    text-align:center
+}
 #title{
     text-align:center;
     margin:0 auto;
+}
+#u{
+    text-align:right;
+    margin: 12px 12px 5px 0;
+    padding: 0;
+    color: #999;
+    white-space: nowrap;
 }
