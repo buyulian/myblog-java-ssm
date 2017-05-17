@@ -15,6 +15,8 @@ public interface UserDao {
 
     User getUserById(@Param("id") String id);
 
+    void delete(@Param("id") String id);
+
     void add(User user);
 
     List<User> getAllUser();

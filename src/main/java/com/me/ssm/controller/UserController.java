@@ -28,4 +28,19 @@ public class UserController {
         model.addAttribute("userList",userList);
         return "showUser";
     }
+
+    @RequestMapping("/addUser")
+    public String addUser(HttpServletRequest request,User user){
+        if(!Authentication.isRole("admin",request))
+            return Authentication.backPath;
+        userService.add(user);
+        return "redirect:signIn";
+    }
+    @RequestMapping("/deleteUser")
+    public String deleteUser(HttpServletRequest request){
+        if(!Authentication.isRole("admin",request))
+            return Authentication.backPath;
+        userService.delete(request.getParameter("id"));
+        return "redirect:showUser";
+    }
 }

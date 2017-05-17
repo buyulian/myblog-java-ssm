@@ -11,7 +11,7 @@
     <div id="page-wrapper">
         <div class="container-fluid">
             <div>
-                <h1 class="page-header">用户管理</h1>
+                <h1 class="page-header">添加用户</h1>
             </div>
             <div class="panel-heading">
             </div>
@@ -25,15 +25,14 @@
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
                                 <form action="${pageContext.request.contextPath}/addUser" method="post">
-                                    <label>学号</label>
+                                    <label>用户名</label>
                                     <input class="form-control" name="id">
-                                    <label>姓名</label>
-                                    <input class="form-control" name="name">
                                     <label>密码</label>
-                                    <input class="form-control" name="password">
+                                    <input type="password" class="form-control" name="password">
                                     <label>角色列表(按住shift键多选)</label>
                                     <select multiple="true" class="form-control" name="role">
-                                            <option value="admin">管理员</option>
+                                        <option value="admin">管理员</option>
+                                        <option value="standard">标准</option>
                                     </select>
 
                                     <button type="submit"

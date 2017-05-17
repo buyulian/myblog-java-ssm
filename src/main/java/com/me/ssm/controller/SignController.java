@@ -48,11 +48,4 @@ public class SignController {
         return Authentication.backPath;
     }
 
-    @RequestMapping("/addUser")
-    public String addUser(HttpServletRequest request,User user){
-        if(Authentication.isRole("admin",request))
-            return Authentication.backPath;
-        userService.add(user);
-        return "redirect:signIn";
-    }
 }

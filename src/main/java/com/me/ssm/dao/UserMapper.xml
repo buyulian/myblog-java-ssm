@@ -24,4 +24,8 @@
         INSERT INTO `user` VALUES (#{id}, #{name},#{role}, #{password}, #{salt});
     </insert>
 
+    <delete id="delete" parameterType="String">
+        DELETE FROM USER WHERE id=#{id}
+    </delete>
+
 </mapper>

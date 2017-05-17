@@ -9,11 +9,16 @@
 <div>
     <c:if test="${!empty userList}">
         <c:forEach var="user" items="${userList}">
-            姓名：${user.name} &nbsp;&nbsp;<br>
+            用户名：${user.id} &nbsp;&nbsp;
+            角色：${user.role} &nbsp;&nbsp;
+            <a href="deleteUser?id=${user.id}">删除</a><br>
         </c:forEach>
     </c:if>
 </div>
 <div>
+    <a href="signUp">
+        <input type="button" value="添加" class="btn btn-default">
+    </a>
     <a href="loginOut">
         <input type="button" value="退出" class="btn btn-default">
     </a>

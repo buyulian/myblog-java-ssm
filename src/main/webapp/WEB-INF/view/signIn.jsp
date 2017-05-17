@@ -43,8 +43,8 @@
                                 </label>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <input type="submit" value="登录" class="btn btn-default">
-                                <a href="signUp">
-                                    <input type="button" value="注册" class="btn btn-default">
+                                <a href="showUser">
+                                    <input type="button" value="管理" class="btn btn-default">
                                 </a>
                             </div>
                         </fieldset>
