@@ -6,6 +6,7 @@
         <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="title" property="title" jdbcType="VARCHAR"/>
         <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="date" property="date" jdbcType="DATE"/>
     </resultMap>
 
     <select id="getTextById" parameterType="int" resultMap="TextBaseMap">
@@ -14,7 +15,7 @@
     </select>
 
     <select id="getAllText" resultMap="TextBaseMap">
-        SELECT id,title FROM text
+        SELECT id,title,date FROM text
     </select>
 
     <select id="getAllTextContent" resultMap="TextBaseMap">
@@ -26,7 +27,7 @@
     </select>
 
     <insert id="add" parameterType="Text">
-        INSERT INTO `text` (title,content) VALUES (#{title},#{content});
+        INSERT INTO `text` (title,content,date) VALUES (#{title},#{content},#{date});
     </insert>
 
     <update id="update" parameterType="Text">
