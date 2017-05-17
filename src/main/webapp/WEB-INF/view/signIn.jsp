@@ -10,6 +10,8 @@
 
     <title>登录</title>
 
+    <link rel="shortcut icon" href="/img/blog.ico" type="image/x-icon">
+    <link rel="icon" href="/img/blog.ico" type="image/x-icon">
     <!-- Bootstrap Core CSS -->
     <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/common.css" rel="stylesheet">
@@ -43,9 +45,6 @@
                                 </label>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <input type="submit" value="登录" class="btn btn-default">
-                                <a href="showUser">
-                                    <input type="button" value="管理" class="btn btn-default">
-                                </a>
                             </div>
                         </fieldset>
                     </form>

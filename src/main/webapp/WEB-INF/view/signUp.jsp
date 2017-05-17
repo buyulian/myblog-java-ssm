@@ -4,6 +4,10 @@
 <html>
 <head>
     <title>用户信息列表</title>
+
+    <link rel="shortcut icon" href="/img/blog.ico" type="image/x-icon">
+    <link rel="icon" href="/img/blog.ico" type="image/x-icon">
+
     <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>

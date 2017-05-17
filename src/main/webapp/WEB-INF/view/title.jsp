@@ -47,7 +47,12 @@
 </head>
 <body>
 <div id="u">
-    <c:if test="${isAdmin!=null}">
+    <c:if test="${role=='admin'}">
+        <a href="showUser">
+            <small class="datetime muted">管理</small>
+        </a>
+    </c:if>
+    <c:if test="${role!=null}">
         <a href="addBlog">
             <small class="datetime muted">添加</small>
         </a>
@@ -57,8 +62,8 @@
         <a href="deleteUnusedImage">
             <small class="datetime muted">清理无用图片</small>
         </a>
-        <a href="showUser">
-            <small class="datetime muted">管理</small>
+        <a href="signIn">
+            <small class="datetime muted">登录</small>
         </a>
     </c:if>
 </div>

@@ -1,6 +1,9 @@
 .center{
     text-align:center;
 }
+.bottom{
+    margin-bottom: 20px;
+}
 #title{
     text-align:center;
     margin:0 auto;
@@ -21,7 +24,10 @@
 }
 #div1{
     height:800px;
-    max-height:1600px;
+    max-height: 8000px;
+}
+#div2{
+    height:auto;
 }
 #editor-width{
     width:1100px;
@@ -47,4 +53,16 @@ input[type="text"]:focus{
 }
 .div-item{
     padding: 10px;
+}
+.see-blog{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1100px;
+    background: #fff;
+    margin: 40px auto 20px;
+    border-radius: 7px;
+    border: 1px solid #eee;
+    position: relative;
 }

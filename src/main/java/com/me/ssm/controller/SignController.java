@@ -23,14 +23,6 @@ public class SignController {
         return "signIn";
     }
 
-    @RequestMapping("/signUp")
-    public String signUp(HttpServletRequest request){
-        if(!Authentication.isLogin(request)){
-            return Authentication.backPath;
-        }
-        return "signUp";
-    }
-
     @RequestMapping("/login")
     public String login(HttpServletRequest request, Model model, User user){
         if(Authentication.login(user.getId(),user.getPassword(),request,userService))

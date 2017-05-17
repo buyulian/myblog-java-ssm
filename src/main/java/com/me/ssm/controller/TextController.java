@@ -29,7 +29,7 @@ public class TextController {
     @RequestMapping("/")
     public String title(HttpServletRequest request, Model model){
         if(Authentication.isLogin(request)){
-            model.addAttribute("isAdmin",true);
+            model.addAttribute("role",request.getSession().getAttribute("role"));
         }
         List<Text> title=textService.getAllText();
         model.addAttribute("titleList",title);
@@ -84,7 +84,7 @@ public class TextController {
     @RequestMapping("/seeBlog")
     public String seeBlog(HttpServletRequest request, Model model) throws IOException {
         if(Authentication.isLogin(request)){
-            model.addAttribute("isAdmin",true);
+            model.addAttribute("role",request.getSession().getAttribute("role"));
         }
         int id=Integer.parseInt(request.getParameter("id"));
         List<Text> textList=textService.getAllText();

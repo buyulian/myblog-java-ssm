@@ -54,7 +54,7 @@
 
 <body>
 <div id="u">
-    <c:if test="${isAdmin!=null}">
+    <c:if test="${role!=null}">
         <a href="text?id=${text.id}">
             <small class="datetime muted">编辑</small>
         </a>
@@ -66,16 +66,16 @@
 <div class="center">
     <h1><script>document.write(decode("${text.title}"))</script></h1>
 </div>
-<div id="container">
+<div class="see-blog">
     <div class="content">
-        <div>
+        <div id="div2">
             <p>
                <script>document.write(decode("${text.content}"))</script>
             </p>
         </div>
     </div>
 </div>
-<div class="center">
+<div class="center bottom">
     <c:if test="${priText!=null}">
         <a href="seeBlog?id=${priText.id}">上一篇：<script>document.write(decode("${priText.title}"))</script></a>
     </c:if>
