@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -85,8 +86,28 @@ public class TextController {
         if(Authentication.isLogin(request)){
             model.addAttribute("isAdmin",true);
         }
-        Text text= textService.getTextById(Integer.parseInt(request.getParameter("id")));
+        int id=Integer.parseInt(request.getParameter("id"));
+        List<Text> textList=textService.getAllText();
+        Iterator<Text> iterator=textList.iterator();
+        int priId=-1;
+        int nextId=-1;
+        while (iterator.hasNext()){
+            Text tmp=iterator.next();
+            if(tmp.getId()==id){
+                if(iterator.hasNext()){
+                    nextId=iterator.next().getId();
+                    break;
+                }
+            }else{
+                priId=tmp.getId();
+            }
+        }
+        Text text= textService.getTextById(id);
+        Text priText= textService.getTextById(priId);
+        Text nextText= textService.getTextById(nextId);
         model.addAttribute("text",text);
+        model.addAttribute("priText",priText);
+        model.addAttribute("nextText",nextText);
         return "seeBlog";
     }
     @RequestMapping("/deleteBlog")

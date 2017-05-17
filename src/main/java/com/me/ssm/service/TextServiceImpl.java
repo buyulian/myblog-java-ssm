@@ -24,6 +24,7 @@ public class TextServiceImpl implements TextService {
     private TextDao textDao;
 
     public Text getTextById(int id){
+        if(id<0)return null;
         return textDao.getTextById(id);
     }
 

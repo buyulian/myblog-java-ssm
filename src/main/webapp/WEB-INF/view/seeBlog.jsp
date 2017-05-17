@@ -66,6 +66,18 @@
     <c:if test="${isAdmin!=null}">
         <a href="text?id=${text.id}">编辑</a>
     </c:if>
+    <c:if test="${priText!=null}">
+        <a href="seeBlog?id=${priText.id}">上一篇：<script>document.write(decode("${priText.title}"))</script></a>
+    </c:if>
+    <c:if test="${priText==null}">
+        <label>上一篇：没有了</label>
+    </c:if>
+    <c:if test="${nextText!=null}">
+        <a href="seeBlog?id=${nextText.id}">下一篇：<script>document.write(decode("${nextText.title}"))</script></a>
+    </c:if>
+    <c:if test="${nextText==null}">
+        <label>下一篇：没有了</label>
+    </c:if>
 </div>
 <!--用父容器来控制宽度-->
 <div>

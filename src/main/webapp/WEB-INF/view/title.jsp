@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
 <html>
 <head>
     <title>首页</title>
@@ -34,7 +35,7 @@
     </script>
 </head>
 <body>
-<div>
+<div id="titleDiv">
     <c:if test="${!empty titleList}">
         <c:forEach var="text" items="${titleList}">
             <a href="seeBlog?id=${text.id}">标题：<script>document.write(decode("${text.title}"))</script></a>

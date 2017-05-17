@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 
@@ -36,7 +38,9 @@
     <input type="text" id="title">
     <button onclick="save()">保存</button>
     <a href="/">首页</a>
-    <a href="seeBlog?id=${text.id}">查看</a>
+    <c:if test="${text.id>0}">
+        <a href="seeBlog?id=${text.id}">查看</a>
+    </c:if>
 </div>
 <!--用父容器来控制宽度-->
 <div>
