@@ -3,7 +3,6 @@ package com.me.ssm.controller;
 import com.me.ssm.System.Authentication;
 import com.me.ssm.model.User;
 import com.me.ssm.service.UserService;
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +14,6 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    private Logger log = Logger.getLogger(UserController.class);
     @Resource
     private UserService userService;
 
@@ -24,19 +22,22 @@ public class UserController {
         if(!Authentication.isRole("admin",request)){
             return Authentication.backPath;
         }
-        log.info("查询所有用户信息");
         List<User> userList = userService.getAllUser();
         model.addAttribute("userList",userList);
         return "showUser";
     }
 
 
-    @RequestMapping("/signUp")
-    public String signUp(HttpServletRequest request){
+    @RequestMapping("/editUser")
+    public String signUp(HttpServletRequest request, Model model){
         if(!Authentication.isRole("admin",request)){
             return Authentication.backPath;
         }
-        return "signUp";
+        String id=request.getParameter("id");
+        if(id!=null)
+            model.addAttribute("id",id);
+        else model.addAttribute("id",-1);
+        return "editUser";
     }
 
     @RequestMapping("/addUser")
@@ -44,7 +45,15 @@ public class UserController {
         if(!Authentication.isRole("admin",request))
             return Authentication.backPath;
         userService.add(user);
-        return "redirect:signIn";
+        return "redirect:showUser";
+    }
+
+    @RequestMapping("/updateUser")
+    public String updateUser(HttpServletRequest request,User user){
+        if(!Authentication.isRole("admin",request))
+            return Authentication.backPath;
+        userService.update(user);
+        return "redirect:showUser";
     }
     @RequestMapping("/deleteUser")
     public String deleteUser(HttpServletRequest request){
