@@ -113,6 +113,17 @@
         <welcome-file></welcome-file>
     </welcome-file-list>
 
+    <error-page>
+        <error-code>404</error-code>
+        <location>/400.html</location>
+    </error-page>
+
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/500.html</location>
+    </error-page>
+
+
     <!-- session配置 -->
     <session-config>
         <session-timeout>15</session-timeout>

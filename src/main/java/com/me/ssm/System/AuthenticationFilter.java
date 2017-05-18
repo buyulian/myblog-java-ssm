@@ -19,7 +19,12 @@ public class AuthenticationFilter implements Filter  {
         String url=((HttpServletRequest)request).getRequestURI();
 
         //此处写总体的url权限控制代码
-
+        String id=request.getParameter("id");
+        if(id!=null&&!AuthenticationFilterTools.isNumeric(id)){
+            RequestDispatcher dispatcher = request.getRequestDispatcher("warn.html");    // 使用req对象获取RequestDispatcher对象
+            dispatcher.forward(request, response);
+            return;
+        }
         System.out.println(url);
         if(url.startsWith("/")){
             // 把请求传回过滤链

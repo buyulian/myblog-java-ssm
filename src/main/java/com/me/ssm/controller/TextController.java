@@ -20,6 +20,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
+import static java.awt.SystemColor.text;
+
 @Controller
 public class TextController {
 
@@ -42,6 +44,7 @@ public class TextController {
             return Authentication.backPath;
         }
         int id=Integer.parseInt(request.getParameter("id"));
+        if(text==null)return Authentication.warnPath;
         Text text=textService.getTextById(id);
 //        String str=Authentication.base64Decode(text.getContent());
 //        str = str.replaceAll("%(?![0-9a-fA-F]{2})", "%25");
@@ -103,6 +106,7 @@ public class TextController {
             }
         }
         Text text= textService.getTextById(id);
+        if(text==null)return Authentication.warnPath;
         Text priText= textService.getTextById(priId);
         Text nextText= textService.getTextById(nextId);
         model.addAttribute("text",text);

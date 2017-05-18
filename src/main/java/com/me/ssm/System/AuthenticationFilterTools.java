@@ -1,5 +1,7 @@
 package com.me.ssm.System;
 
+import java.util.regex.Pattern;
+
 /**
  * Created by 不语恋 on 2017/5/11.
  */
@@ -18,5 +20,9 @@ public class AuthenticationFilterTools {
             if(url.endsWith(suffixes[i]))
                 return true;
         return false;
+    }
+    public static boolean isNumeric(String str){
+        Pattern pattern = Pattern.compile("[0-9]+");
+        return pattern.matcher(str).matches();
     }
 }

@@ -20,6 +20,7 @@ import java.util.Random;
 @Component
 public class Authentication {
     public static String backPath="redirect:/";//越权访问的返回路径
+    public static String warnPath="redirect:/warn.html";//恶意攻击的返回路径
     //登录工具类
     public static boolean login(String id,String pwd,HttpServletRequest request,UserService userService){
         User user=userService.getUserById(id);
