@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * Created by 不语恋 on 2017/5/10.
@@ -48,7 +47,7 @@ public class SignController {
         return Authentication.backPath;
     }
     @RequestMapping("/getCode")
-    public void getCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void getCode(HttpServletRequest request, HttpServletResponse response) throws Exception {
         VerificationCode.getCode(request,response);
     }
 
