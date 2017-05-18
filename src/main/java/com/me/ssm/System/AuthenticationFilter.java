@@ -17,13 +17,12 @@ public class AuthenticationFilter implements Filter  {
     public void  doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws java.io.IOException, ServletException {
 
         String url=((HttpServletRequest)request).getRequestURI();
+        String query = ((HttpServletRequest) request).getQueryString();
 
         //此处写总体的url权限控制代码
-        String id=request.getParameter("id");
-        if(id!=null&&!AuthenticationFilterTools.isNumeric(id)){
-            RequestDispatcher dispatcher = request.getRequestDispatcher("warn.html");    // 使用req对象获取RequestDispatcher对象
-            dispatcher.forward(request, response);
-            return;
+
+        if(query!=null){
+            url+="?"+query;
         }
         System.out.println(url);
         if(url.startsWith("/")){

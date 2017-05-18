@@ -17,6 +17,8 @@ public interface UserDao {
 
     void delete(@Param("id") String id);
 
+    void update(User user);
+
     void add(User user);
 
     List<User> getAllUser();

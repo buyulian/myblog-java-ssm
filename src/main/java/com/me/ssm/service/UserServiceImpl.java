@@ -34,4 +34,10 @@ public class UserServiceImpl implements UserService {
         userDao.delete(id);
     }
 
+    public void update(User user) {
+        user.setSalt(Authentication.getSalt());
+        user.setPassword(Authentication.md5(user.getPassword()+user.getSalt()));
+        userDao.update(user);
+    }
+
 }

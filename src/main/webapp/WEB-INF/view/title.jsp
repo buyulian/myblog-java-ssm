@@ -79,7 +79,7 @@
                         <a href="seeBlog?id=${text.id}">
                             <script>document.write(decode("${text.title}"))</script>
                         </a>
-                        <c:if test="${isAdmin!=null}">
+                        <c:if test="${role!=null}">
                             <a href="deleteBlog?id=${text.id}" class="remove">删除</a>
                         </c:if>
                         <small class="datetime muted">${text.date.year+1900}-${text.date.month+1}-${text.date.date}</small>

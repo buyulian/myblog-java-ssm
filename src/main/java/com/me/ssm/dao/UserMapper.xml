@@ -28,4 +28,8 @@
         DELETE FROM USER WHERE id=#{id}
     </delete>
 
+    <update id="update" parameterType="User">
+        UPDATE user set password=#{password},salt=#{salt} WHERE id=#{id}
+    </update>
+
 </mapper>

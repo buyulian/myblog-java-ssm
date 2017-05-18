@@ -9,6 +9,20 @@
     <link rel="icon" href="/img/blog.ico" type="image/x-icon">
 
     <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        window.onload=function(){
+            var id="${id}";
+            if(id!=-1){
+                document.getElementById("id").readOnly="readOnly";
+                document.getElementById("id").value=id;
+                document.getElementById("form").action+="updateUser";
+                document.getElementById("submit").innerHTML="更新";
+            }else{
+                document.getElementById("form").action+="addUser";
+                document.getElementById("id").value="";
+            }
+        }
+    </script>
 </head>
 <body>
     <!-- Page Content -->
@@ -28,9 +42,9 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
-                                <form action="${pageContext.request.contextPath}/addUser" method="post">
+                                <form action="${pageContext.request.contextPath}/" id="form" method="post">
                                     <label>用户名</label>
-                                    <input class="form-control" name="id">
+                                    <input class="form-control" name="id" id="id">
                                     <label>密码</label>
                                     <input type="password" class="form-control" name="password">
                                     <label>角色列表(按住shift键多选)</label>
@@ -40,7 +54,7 @@
                                     </select>
 
                                     <button type="submit"
-                                            class="btn btn-primary form-control">添加
+                                            class="btn btn-primary form-control" id="submit">添加
                                     </button>
                                 </form>
                             </div>
