@@ -1,6 +1,7 @@
 package com.me.ssm.controller;
 
 import com.me.ssm.System.Authentication;
+import com.me.ssm.System.VerificationCode;
 import com.me.ssm.model.User;
 import com.me.ssm.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Created by 不语恋 on 2017/5/10.
@@ -25,9 +28,14 @@ public class SignController {
 
     @RequestMapping("/login")
     public String login(HttpServletRequest request, Model model, User user){
+        String code=request.getParameter("code");
+        if(!VerificationCode.validateCode(request,code)){
+            model.addAttribute("message","密码或验证码错误");
+            return "signIn";
+        }
         if(Authentication.login(user.getId(),user.getPassword(),request,userService))
             return Authentication.backPath;
-        model.addAttribute("message","密码错误");
+        model.addAttribute("message","密码或验证码错误");
         return "signIn";
     }
 
@@ -38,6 +46,10 @@ public class SignController {
         }
         Authentication.loginOut(request);
         return Authentication.backPath;
+    }
+    @RequestMapping("/getCode")
+    public void getCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        VerificationCode.getCode(request,response);
     }
 
 }
