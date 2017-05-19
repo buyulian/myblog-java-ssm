@@ -15,7 +15,7 @@
     </select>
 
     <select id="getAllText" resultMap="TextBaseMap">
-        SELECT id,title,date FROM text
+        SELECT id,title,date FROM text ORDER BY id DESC
     </select>
 
     <select id="getAllTextContent" resultMap="TextBaseMap">

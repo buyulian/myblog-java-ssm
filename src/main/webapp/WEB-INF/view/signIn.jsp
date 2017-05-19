@@ -39,6 +39,11 @@
                             <div class="form-group">
                                 <input class="form-control" placeholder="密码" name="password" type="password">
                             </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="验证码" name="code" autofocus>
+                                <img src="getCode" id="codeImg">
+                                <a href="javascript:changeCode()">换一张</a>
+                            </div>
                             <div class="checkbox">
                                 <label>
                                     <input name="remember" type="checkbox" value="RememberMe">记住我
@@ -48,6 +53,11 @@
                             </div>
                         </fieldset>
                     </form>
+                    <script>
+                        function changeCode() {
+                            document.getElementById("codeImg").src="getCode?a="+Math.random();
+                        }
+                    </script>
                 </div>
             </div>
         </div>
