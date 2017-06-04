@@ -44,6 +44,14 @@
     </script>
 </head>
 <body>
+<div class="center">
+    <nav>
+        <a href="#">首页</a>
+        <a href="#">技术</a>
+        <a href="#">生活</a>
+        <a href="#">关于</a>
+    </nav>
+</div>
 <div id="u">
     <c:if test="${role=='admin'}">
         <a href="showUser">
@@ -64,11 +72,6 @@
             <small class="datetime muted">登录</small>
         </a>
     </c:if>
-</div>
-<div class="center">
-    <img src="/img/logo.jpg" alt="logo" width="66" height="66"></a>
-    <p>buyulian</p>
-    <p>自强不息</p>
 </div>
 <div id="container">
     <div class="content">
