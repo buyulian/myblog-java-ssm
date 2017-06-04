@@ -10,16 +10,27 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 /**
- * Created by 不语恋 on 2017/5/18.
+ * 验证码生成类
+ * @author 不语恋
  */
 public class VerificationCode {
-    private static int width = 140;//验证码宽度
-    private static int height = 60;//验证码高度
-    private static int codeCount = 4;//验证码个数
-    private static int lineCount = 4;//混淆线个数
 
+    /** 验证码宽度 */
+    private static int width = 140;
+
+    /** 验证码高度 */
+    private static int height = 60;
+
+    /** 验证码个数 */
+    private static int codeCount = 4;
+
+    /** 混淆线个数 */
+    private static int lineCount = 4;
+
+    /** 验证码包含的字符 */
     static String codeSequence = "0123456789qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM";
 
+    /** 得到验证码 */
     public static void getCode(HttpServletRequest request,
                                HttpServletResponse response) throws Exception {
         //定义随机数类
@@ -70,6 +81,7 @@ public class VerificationCode {
         sos.close();
     }
 
+    /** 让验证码失效 */
     public static boolean validateCode(HttpServletRequest request, String code) {
         HttpSession session = request.getSession();
         String codeValidate = (String) session.getAttribute("codeValidate");
@@ -81,6 +93,7 @@ public class VerificationCode {
         return flag;
     }
 
+    /** 生成中文验证码 */
     public static String createChineseChar() throws Exception {
         String str = null;
         int hightPos, lowPos; // 定义高低位

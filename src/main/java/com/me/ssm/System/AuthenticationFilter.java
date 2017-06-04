@@ -7,9 +7,11 @@ package com.me.ssm.System;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 
-//导入必需的 java 库
-//这个过滤器负责总体的权限管理，是从宏观角度观测的
-//实现 Filter 类
+/**
+ * 导入必需的 java 库
+ * 这个过滤器负责总体的权限管理，是从宏观角度观测的
+ * 实现 Filter 类
+ */
 public class AuthenticationFilter implements Filter {
     public void init(FilterConfig config) throws ServletException {
 
@@ -31,8 +33,8 @@ public class AuthenticationFilter implements Filter {
             chain.doFilter(request, response);
         }
     }
-
+    /** 在 Filter 实例被 Web 容器从服务移除之前调用 */
     public void destroy() {
-        /* 在 Filter 实例被 Web 容器从服务移除之前调用 */
+
     }
 }

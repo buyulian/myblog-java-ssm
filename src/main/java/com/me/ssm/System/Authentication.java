@@ -14,15 +14,32 @@ import java.security.SecureRandom;
 import java.util.Random;
 
 /**
- * Created by 不语恋 on 2017/5/8.
+ * 这个类集中了授权管理相关的所有工具类，从微观角度进行权限管理
+ * @author 不语恋
  */
-//这个类集中了授权管理相关的所有工具类，从微观角度进行权限管理
 @Component
 public class Authentication {
-    public static String backPath = "redirect:/";//越权访问的返回路径
-    public static String warnPath = "redirect:/warn.html";//恶意攻击的返回路径
+    /** 越权访问的返回路径 */
+    public static String backPath = "redirect:/";
+    /** 恶意攻击的返回路径 */
+    public static String warnPath = "redirect:/warn.html";
 
-    //登录工具类
+    /** 登录工具类
+     *
+     * @param id
+     *          用户的id
+     *
+     * @param pwd
+     *          用户的密码
+     *
+     * @param request
+     *          Http 请求
+     *
+     * @param userService
+     *          用户 service 层接口
+     *
+     * @return 是否登录成功
+     * */
     public static boolean login(String id, String pwd, HttpServletRequest request, UserService userService) {
         User user = userService.getUserById(id);
         if (user == null)
@@ -44,7 +61,11 @@ public class Authentication {
         return false;
     }
 
-    //是否登录
+    /** 是否登录
+     * @param request
+     *          请求
+     * @return 是否登录成功
+     */
     public static boolean isLogin(HttpServletRequest request) {
         // 如果不存在 session 会话，则创建一个 session 对象
         HttpSession session = request.getSession();
@@ -56,7 +77,7 @@ public class Authentication {
         return true;
     }
 
-    //是否是这个角色
+    /** 是否是这个角色 */
     public static boolean isRole(String role, HttpServletRequest request) {
         if (isLogin(request)) {
             if (request.getSession().getAttribute("role").equals(role))
@@ -65,14 +86,14 @@ public class Authentication {
         return false;
     }
 
-    //退出
+    /** 退出 */
     public static void loginOut(HttpServletRequest request) {
         if (isLogin(request)) {
             request.getSession().invalidate();
         }
     }
 
-    //md5加密
+    /** md5加密 */
     public static String md5(String str) {
 
         MessageDigest md5 = null;
@@ -86,7 +107,7 @@ public class Authentication {
         return newstr;
     }
 
-    //bytes数组转16进制字符串
+    /** bytes数组转16进制字符串 */
     public static String bytesToHexString(byte[] src) {
         StringBuilder stringBuilder = new StringBuilder("");
         if (src == null || src.length <= 0) {
@@ -103,7 +124,7 @@ public class Authentication {
         return stringBuilder.toString();
     }
 
-    //随机生成盐
+    /** 随机生成盐 */
     public static String getSalt() {
         char[] chars = "0123456789abcdefghijklmnopqrwtuvzxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
         char[] saltchars = new char[6];
@@ -116,7 +137,7 @@ public class Authentication {
         return salt;
     }
 
-    //sql安全的base64加密
+    /** sql安全的base64加密 */
     public static String safeUrlBase64Encode(byte[] data) {
         String encodeBase64 = new BASE64Encoder().encode(data);
         String safeBase64Str = encodeBase64.replace('+', '-');
@@ -125,7 +146,7 @@ public class Authentication {
         return safeBase64Str;
     }
 
-    //sql安全的base64解密
+    /** sql安全的base64解密 */
     public static byte[] safeUrlBase64Decode(String safeBase64Str) throws IOException {
         String base64Str = safeBase64Str.replace('-', '+');
         base64Str = base64Str.replace('_', '/');
@@ -136,13 +157,13 @@ public class Authentication {
         return new BASE64Decoder().decodeBuffer(base64Str);
     }
 
-    //base64加密
+    /** base64加密 */
     public static String base64Encode(String str) {
         byte[] data = str.getBytes();
         return safeUrlBase64Encode(data);
     }
 
-    //base64解密
+    /** base64解密 */
     public static String base64Decode(String str) throws IOException {
         byte[] data = safeUrlBase64Decode(str);
         return new String(data);
