@@ -25,6 +25,7 @@ public class SignController {
         return "signIn";
     }
 
+
     @RequestMapping("/login")
     public String login(HttpServletRequest request, Model model, User user){
         String code=request.getParameter("code");

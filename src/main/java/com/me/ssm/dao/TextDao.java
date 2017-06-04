@@ -14,7 +14,7 @@ public interface TextDao {
     Text getTextById(@Param("id") int id);
 
     void add(Text text);
-
+    
     void update(Text text);
 
     void delete(@Param("id") int id);

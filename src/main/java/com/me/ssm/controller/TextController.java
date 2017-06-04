@@ -29,99 +29,105 @@ public class TextController {
     private TextService textService;
 
     @RequestMapping("/")
-    public String title(HttpServletRequest request, Model model){
-        if(Authentication.isLogin(request)){
-            model.addAttribute("role",request.getSession().getAttribute("role"));
+    public String title(HttpServletRequest request, Model model) {
+        if (Authentication.isLogin(request)) {
+            model.addAttribute("role", request.getSession().getAttribute("role"));
         }
-        List<Text> title=textService.getAllText();
-        model.addAttribute("titleList",title);
+        List<Text> title = textService.getAllText();
+        model.addAttribute("titleList", title);
         return "title";
     }
 
     @RequestMapping("/text")
     public String text(HttpServletRequest request, Model model) throws IOException {
-        if(!Authentication.isLogin(request)){
+
+        if (!Authentication.isLogin(request)) {
             return Authentication.backPath;
         }
-        int id=Integer.parseInt(request.getParameter("id"));
-        if(text==null)return Authentication.warnPath;
-        Text text=textService.getTextById(id);
+        int id = Integer.parseInt(request.getParameter("id"));
+        if (text == null) return Authentication.warnPath;
+        Text text = textService.getTextById(id);
 //        String str=Authentication.base64Decode(text.getContent());
 //        str = str.replaceAll("%(?![0-9a-fA-F]{2})", "%25");
 //        text.setContent(URLDecoder.decode(str,"utf-8"));
-        model.addAttribute("text",text);
+        model.addAttribute("text", text);
         return "text";
     }
+
     @RequestMapping("/save")
     public void save(HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
-        if(!Authentication.isLogin(request)){
-            return ;
+        if (!Authentication.isLogin(request)) {
+            return;
         }
-        String content=request.getParameter("content");
-        String title=request.getParameter("title");
-        int id=Integer.parseInt(request.getParameter("id"));
-        Text text=new Text();
+        String content = request.getParameter("content");
+        String title = request.getParameter("title");
+        int id = Integer.parseInt(request.getParameter("id"));
+        Text text = new Text();
         text.setTitle(title);
         text.setContent(content);
-        if(id<0){
+        if (id < 0) {
             textService.add(text);
-        }else{
+        } else {
             text.setId(id);
             textService.update(text);
         }
         PrintWriter out = response.getWriter();
         out.println("success");
         out.close();
-        return ;
+        return;
     }
+
     @RequestMapping("/addBlog")
-    public String addBlog(HttpServletRequest request, Model model){
-        if(!Authentication.isLogin(request)){
+    public String addBlog(HttpServletRequest request, Model model) {
+        if (!Authentication.isLogin(request)) {
             return Authentication.backPath;
         }
-        Text text=new Text();
+        Text text = new Text();
         text.setId(-1);
-        model.addAttribute("text",text);
+        model.addAttribute("text", text);
         return "text";
     }
+
     @RequestMapping("/seeBlog")
     public String seeBlog(HttpServletRequest request, Model model) throws IOException {
-        if(Authentication.isLogin(request)){
-            model.addAttribute("role",request.getSession().getAttribute("role"));
+        if (Authentication.isLogin(request)) {
+            model.addAttribute("role", request.getSession().getAttribute("role"));
         }
-        int id=Integer.parseInt(request.getParameter("id"));
-        List<Text> textList=textService.getAllText();
-        Iterator<Text> iterator=textList.iterator();
-        int priId=-1;
-        int nextId=-1;
-        while (iterator.hasNext()){
-            Text tmp=iterator.next();
-            if(tmp.getId()==id){
-                if(iterator.hasNext()){
-                    nextId=iterator.next().getId();
+        int id = Integer.parseInt(request.getParameter("id"));
+        List<Text> textList = textService.getAllText();
+        Iterator<Text> iterator = textList.iterator();
+        int priId = -1;
+        int nextId = -1;
+        while (iterator.hasNext()) {
+            Text tmp = iterator.next();
+            if (tmp.getId() == id) {
+                if (iterator.hasNext()) {
+                    nextId = iterator.next().getId();
                     break;
                 }
-            }else{
-                priId=tmp.getId();
+            } else {
+                priId = tmp.getId();
             }
         }
-        Text text= textService.getTextById(id);
-        if(text==null)return Authentication.warnPath;
-        Text priText= textService.getTextById(priId);
-        Text nextText= textService.getTextById(nextId);
-        model.addAttribute("text",text);
-        model.addAttribute("priText",priText);
-        model.addAttribute("nextText",nextText);
+        Text text = textService.getTextById(id);
+        if (text == null) return Authentication.warnPath;
+        Text priText = textService.getTextById(priId);
+        Text nextText = textService.getTextById(nextId);
+        model.addAttribute("text", text);
+        model.addAttribute("priText", priText);
+        model.addAttribute("nextText", nextText);
         return "seeBlog";
     }
+
     @RequestMapping("/deleteBlog")
-    public String deleteBlog(HttpServletRequest request, Model model){
-        if(!Authentication.isLogin(request)){
+    public String deleteBlog(HttpServletRequest request, Model model) {
+        if (!Authentication.isLogin(request)) {
             return Authentication.backPath;
         }
         textService.delete(Integer.parseInt(request.getParameter("id")));
         return "redirect:/";
     }
+
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public void upload(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String path = request.getRealPath("/upload");
@@ -134,15 +140,15 @@ public class TextController {
             MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
             List<MultipartFile> fileList = multipartRequest.getFiles("wangEditorH5File");
             for (MultipartFile fi : fileList) {
-                if(!fi.isEmpty()){
-                    String uuid=UUID.randomUUID().toString();
-                    String fin=fi.getOriginalFilename();
-                    int lio=fin.lastIndexOf(".");
-                    int len=fin.length();
-                    String substr=fin.substring(lio,len);
-                    substr=substr.toLowerCase();
-                    fileName = uuid+substr;
-                   fi.transferTo(new File(path, fileName));
+                if (!fi.isEmpty()) {
+                    String uuid = UUID.randomUUID().toString();
+                    String fin = fi.getOriginalFilename();
+                    int lio = fin.lastIndexOf(".");
+                    int len = fin.length();
+                    String substr = fin.substring(lio, len);
+                    substr = substr.toLowerCase();
+                    fileName = uuid + substr;
+                    fi.transferTo(new File(path, fileName));
                 }
             }
         } catch (Exception e) {
@@ -158,9 +164,10 @@ public class TextController {
         out.flush();
         out.close();
     }
+
     @RequestMapping("/deleteUnusedImage")
-    public String deleteUnusedImage(HttpServletRequest request){
-        if(!Authentication.isLogin(request)){
+    public String deleteUnusedImage(HttpServletRequest request) {
+        if (!Authentication.isLogin(request)) {
             return Authentication.backPath;
         }
         String path = request.getRealPath("/upload");

@@ -18,46 +18,47 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/showUser")
-    public String showUser(HttpServletRequest request, Model model){
-        if(!Authentication.isRole("admin",request)){
+    public String showUser(HttpServletRequest request, Model model) {
+        if (!Authentication.isRole("admin", request)) {
             return Authentication.backPath;
         }
         List<User> userList = userService.getAllUser();
-        model.addAttribute("userList",userList);
+        model.addAttribute("userList", userList);
         return "showUser";
     }
 
 
     @RequestMapping("/editUser")
-    public String signUp(HttpServletRequest request, Model model){
-        if(!Authentication.isRole("admin",request)){
+    public String signUp(HttpServletRequest request, Model model) {
+        if (!Authentication.isRole("admin", request)) {
             return Authentication.backPath;
         }
-        String id=request.getParameter("id");
-        if(id!=null)
-            model.addAttribute("id",id);
-        else model.addAttribute("id",-1);
+        String id = request.getParameter("id");
+        if (id != null)
+            model.addAttribute("id", id);
+        else model.addAttribute("id", -1);
         return "editUser";
     }
 
     @RequestMapping("/addUser")
-    public String addUser(HttpServletRequest request,User user){
-        if(!Authentication.isRole("admin",request))
+    public String addUser(HttpServletRequest request, User user) {
+        if (!Authentication.isRole("admin", request))
             return Authentication.backPath;
         userService.add(user);
         return "redirect:showUser";
     }
 
     @RequestMapping("/updateUser")
-    public String updateUser(HttpServletRequest request,User user){
-        if(!Authentication.isRole("admin",request))
+    public String updateUser(HttpServletRequest request, User user) {
+        if (!Authentication.isRole("admin", request))
             return Authentication.backPath;
         userService.update(user);
         return "redirect:showUser";
     }
+
     @RequestMapping("/deleteUser")
-    public String deleteUser(HttpServletRequest request){
-        if(!Authentication.isRole("admin",request))
+    public String deleteUser(HttpServletRequest request) {
+        if (!Authentication.isRole("admin", request))
             return Authentication.backPath;
         userService.delete(request.getParameter("id"));
         return "redirect:showUser";
