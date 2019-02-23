@@ -32,7 +32,5 @@ public class UserServiceTest {
     public void testGetUserById(){
         User buyulian = userService.getUserById("buyulian");
         System.out.println(buyulian.getName());
-        User buyulian2 = userService.getUserById("buyulian");
-        System.out.println(buyulian2.getName());
     }
 }
