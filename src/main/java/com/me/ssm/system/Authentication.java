@@ -1,4 +1,4 @@
-package com.me.ssm.System;
+package com.me.ssm.system;
 
 import com.me.ssm.model.User;
 import com.me.ssm.service.UserService;

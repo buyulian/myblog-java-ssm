@@ -1,4 +1,4 @@
-package com.me.ssm.System;
+package com.me.ssm.system;
 
 /**
  * Created by 不语恋 on 2017/4/27.

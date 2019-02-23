@@ -1,6 +1,6 @@
 package com.me.ssm.controller;
 
-import com.me.ssm.System.Authentication;
+import com.me.ssm.system.Authentication;
 import com.me.ssm.model.Text;
 import com.me.ssm.service.TextService;
 import org.springframework.stereotype.Controller;

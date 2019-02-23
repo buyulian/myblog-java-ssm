@@ -1,7 +1,6 @@
 package com.me.ssm.service;
 
-import com.me.ssm.System.Authentication;
-import com.me.ssm.System.AuthenticationFilter;
+import com.me.ssm.system.Authentication;
 import com.me.ssm.dao.TextDao;
 import com.me.ssm.model.Text;
 import org.slf4j.Logger;

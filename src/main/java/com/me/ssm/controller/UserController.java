@@ -1,6 +1,6 @@
 package com.me.ssm.controller;
 
-import com.me.ssm.System.Authentication;
+import com.me.ssm.system.Authentication;
 import com.me.ssm.model.User;
 import com.me.ssm.service.UserService;
 import org.springframework.stereotype.Controller;

@@ -1,4 +1,4 @@
-package com.me.ssm.System;
+package com.me.ssm.system;
 
 import java.util.regex.Pattern;
 

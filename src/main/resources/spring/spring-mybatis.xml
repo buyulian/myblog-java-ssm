@@ -12,11 +12,6 @@
     <!-- 自动扫描 -->
     <context:component-scan base-package="com.me.ssm"/>
 
-    <!-- 第一种方式：加载一个properties文件 -->
-    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:jdbc.properties"/>
-    </bean>
-
 
     <!-- 配置数据源 -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
@@ -37,10 +32,26 @@
         <property name="maxWait" value="${maxWait}"></property>
     </bean>
 
+    <!-- 配置数据源1 -->
+    <bean name="dataSourceSqlite" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="url" value="${sqlite.url}" />
+        <property name="driverClassName" value="${sqlite.driverClassName}"/>
+    </bean>
+
+    <bean id="dynamicDataSource" class="com.me.ssm.system.data.DynamicDataSource">
+        <property name="defaultTargetDataSource" ref="dataSource"/>
+        <property name="targetDataSources">
+            <map>
+                <entry key="dataSource" value-ref="dataSource"/>
+                <entry key="dataSourceSqlite" value-ref="dataSourceSqlite"/>
+            </map>
+        </property>
+    </bean>
+
     <!-- mybatis和spring完美整合，不需要mybatis的配置映射文件 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="configLocation" value="classpath:mybatis-config.xml"/>
-        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:spring/mybatis-config.xml"/>
+        <property name="dataSource" ref="dynamicDataSource"/>
         <!-- 自动扫描mapping.xml文件 -->
         <property name="mapperLocations" value="classpath*:com/me/ssm/dao/*.xml"/>
         <property name="typeAliasesPackage" value="com.me.ssm.model"/>
@@ -50,6 +61,14 @@
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.me.ssm.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+
+    <tx:annotation-driven transaction-manager="transactionManager"
+                          proxy-target-class="true"/>
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
     </bean>
 
 </beans>
