@@ -1,8 +1,11 @@
 package com.me.ssm.service;
 
 import com.me.ssm.System.Authentication;
+import com.me.ssm.System.AuthenticationFilter;
 import com.me.ssm.dao.TextDao;
 import com.me.ssm.model.Text;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,43 +24,59 @@ import java.util.regex.Pattern;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class TextServiceImpl implements TextService {
+
+    private Logger logger= LoggerFactory.getLogger(TextServiceImpl.class);
+
+
     @Resource
     private TextDao textDao;
 
+    @Override
     public Text getTextById(int id) {
-        if (id < 0) return null;
+        if (id < 0) {
+            return null;
+        }
         return textDao.getTextById(id);
     }
 
+    @Override
     public void add(Text text) {
-        if (text.getTitle().length() > 240)
+        if (text.getTitle().length() > 240) {
             return;
+        }
         text.setDate(new Date());
         textDao.add(text);
     }
 
+    @Override
     public void update(Text text) {
-        if (text.getTitle().length() > 240)
+        if (text.getTitle().length() > 240) {
             return;
+        }
         textDao.update(text);
     }
 
+    @Override
     public void delete(int id) {
         textDao.delete(id);
     }
 
+    @Override
     public int getId() {
         return textDao.getId();
     }
 
+    @Override
     public List<Text> getAllText() {
         return textDao.getAllText();
     }
 
+    @Override
     public List<Text> getAllTextContent() {
         return textDao.getAllTextContent();
     }
 
+    @Override
     public void deleteUnusedImage(String path) {
         path += "\\";
         List<Text> textList = textDao.getAllTextContent();
@@ -82,30 +101,34 @@ public class TextServiceImpl implements TextService {
                 String fileName = matcher.group();
                 File file = new File(path + fileName);
                 if (!file.renameTo(new File(path + flag + fileName))) {
-                    System.out.println("重命名失败");
+                    logger.error("重命名失败");
                 }
             }
         }
         File file = new File(path);
         File[] fileList = file.listFiles();
-        if (fileList == null)
+        if (fileList == null) {
             return;
+        }
         for (File f : fileList) {
             if (!f.getName().contains(flag)) {
-                if (!f.delete())
-                    System.out.println("删除文件失败");
+                if (!f.delete()) {
+                    logger.error("删除文件失败");
+                }
             }
         }
         file = new File(path);
         fileList = file.listFiles();
-        if (fileList == null)
+        if (fileList == null) {
             return;
+        }
         for (File f : fileList) {
             String fname = f.getName();
             if (fname.contains(flag)) {
                 String substr = fname.substring(flag.length());
-                if (!f.renameTo(new File(path + substr)))
-                    System.out.println("重命名文件失败");
+                if (!f.renameTo(new File(path + substr))) {
+                    logger.error("重命名文件失败");
+                }
             }
         }
     }

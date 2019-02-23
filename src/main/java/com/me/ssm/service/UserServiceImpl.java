@@ -17,24 +17,29 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserDao userDao;
 
+    @Override
     public User getUserById(String id) {
         return userDao.getUserById(id);
     }
 
+    @Override
     public List<User> getAllUser() {
         return userDao.getAllUser();
     }
 
+    @Override
     public void add(User user) {
         user.setSalt(Authentication.getSalt());
         user.setPassword(Authentication.md5(user.getPassword() + user.getSalt()));
         userDao.add(user);
     }
 
+    @Override
     public void delete(String id) {
         userDao.delete(id);
     }
 
+    @Override
     public void update(User user) {
         user.setSalt(Authentication.getSalt());
         user.setPassword(Authentication.md5(user.getPassword() + user.getSalt()));

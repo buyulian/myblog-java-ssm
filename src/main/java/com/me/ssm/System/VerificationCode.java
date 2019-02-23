@@ -49,7 +49,8 @@ public class VerificationCode {
         g.fillRect(1, 1, width - 2, height - 2);
         //3.设置干扰线
         g.setColor(Color.blue);
-        Graphics2D g2 = (Graphics2D) g;  //g是Graphics对象
+        //g是Graphics对象
+        Graphics2D g2 = (Graphics2D) g;
         g2.setStroke(new BasicStroke(3.0f));
         g2.setColor(Color.blue);
         for (int i = 0; i < lineCount; i++) {
@@ -96,14 +97,18 @@ public class VerificationCode {
     /** 生成中文验证码 */
     public static String createChineseChar() throws Exception {
         String str = null;
-        int hightPos, lowPos; // 定义高低位
+        // 定义高低位
+        int hightPos, lowPos;
         Random random = new Random();
-        hightPos = (176 + Math.abs(random.nextInt(39)));//获取高位值
-        lowPos = (161 + Math.abs(random.nextInt(93)));//获取低位值
+        //获取高位值
+        hightPos = (176 + Math.abs(random.nextInt(39)));
+        //获取低位值
+        lowPos = (161 + Math.abs(random.nextInt(93)));
         byte[] b = new byte[2];
         b[0] = (new Integer(hightPos).byteValue());
         b[1] = (new Integer(lowPos).byteValue());
-        str = new String(b, "GBk");//转成中文
+        //转成中文
+        str = new String(b, "GBk");
         return str;
     }
 }

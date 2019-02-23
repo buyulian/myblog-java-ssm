@@ -4,6 +4,9 @@ package com.me.ssm.System;
  * Created by 不语恋 on 2017/4/27.
  */
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,10 +16,14 @@ import javax.servlet.http.HttpServletRequest;
  * 实现 Filter 类
  */
 public class AuthenticationFilter implements Filter {
+    private Logger logger= LoggerFactory.getLogger(AuthenticationFilter.class);
+
+    @Override
     public void init(FilterConfig config) throws ServletException {
 
     }
 
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws java.io.IOException, ServletException {
 
         String url = ((HttpServletRequest) request).getRequestURI();
@@ -27,13 +34,14 @@ public class AuthenticationFilter implements Filter {
         if (query != null) {
             url += "?" + query;
         }
-        System.out.println(url);
+        logger.debug(url);
         if (url.startsWith("/")) {
             // 把请求传回过滤链
             chain.doFilter(request, response);
         }
     }
     /** 在 Filter 实例被 Web 容器从服务移除之前调用 */
+    @Override
     public void destroy() {
 
     }
