@@ -33,7 +33,10 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
     public Connection getConnection() throws SQLException {
         DataSource dataSource = determineTargetDataSource();
         BasicDataSource basicDataSource=(BasicDataSource)dataSource;
-        basicDataSource.setUrl(urlThreadLocal.get());
+        String url = urlThreadLocal.get();
+        if(url!=null&&!"".equals(url)){
+            basicDataSource.setUrl(url);
+        }
         return dataSource.getConnection();
     }
 }
