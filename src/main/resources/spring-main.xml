@@ -19,6 +19,9 @@
             </list>
         </property>
     </bean>
+    <bean class="com.me.ssm.me.MyBeanDefinitionRegistryPostProcessor">
+
+    </bean>
 
     <import resource="classpath:spring/spring-mybatis.xml"/>
 
