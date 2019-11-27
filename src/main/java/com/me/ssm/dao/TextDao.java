@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by 不语恋 on 2017/5/12.
@@ -22,6 +23,8 @@ public interface TextDao {
     int getId();
 
     List<Text> getAllText();
+
+    List<Text> getAllTextForTest(Text text);
 
     List<Text> getAllTextContent();
 }

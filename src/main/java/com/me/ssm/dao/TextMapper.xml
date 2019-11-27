@@ -18,6 +18,18 @@
         SELECT id,title,date FROM text ORDER BY id DESC
     </select>
 
+    <select id="getAllTextForTest" resultMap="TextBaseMap" >
+        SELECT id,title,date
+        FROM text
+        <where>
+            and id in
+            <foreach collection="ids" index="index" item="id" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+            and id = #{id}
+        </where>
+    </select>
+
     <select id="getAllTextContent" resultMap="TextBaseMap">
         SELECT * FROM text
     </select>

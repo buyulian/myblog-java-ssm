@@ -45,11 +45,10 @@ public class TextController {
             return Authentication.backPath;
         }
         int id = Integer.parseInt(request.getParameter("id"));
-        if (text == null) return Authentication.warnPath;
+        if (text == null) {
+            return Authentication.warnPath;
+        }
         Text text = textService.getTextById(id);
-//        String str=Authentication.base64Decode(text.getContent());
-//        str = str.replaceAll("%(?![0-9a-fA-F]{2})", "%25");
-//        text.setContent(URLDecoder.decode(str,"utf-8"));
         model.addAttribute("text", text);
         return "text";
     }
@@ -132,9 +131,11 @@ public class TextController {
     public void upload(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String path = request.getRealPath("/upload");
         File file = new File(path);
-        if (!file.exists())
+        if (!file.exists()) {
             file.mkdirs();
-        String fileName = "";// 文件名称
+        }
+        // 文件名称
+        String fileName = "";
 
         try {
             MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
@@ -154,13 +155,13 @@ public class TextController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        /**********************/
 
         //获取图片url地址
         String imgUrl = "http://localhost:8080/upload/" + fileName;
         response.setContentType("text/text;charset=utf-8");
         PrintWriter out = response.getWriter();
-        out.print(imgUrl);  //返回url地址
+        //返回url地址
+        out.print(imgUrl);
         out.flush();
         out.close();
     }
